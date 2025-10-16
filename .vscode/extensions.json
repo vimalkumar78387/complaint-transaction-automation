@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-json",
+    "ckolkman.vscode-postgres",
+    "humao.rest-client",
+    "eamodio.gitlens",
+    "dsznajder.es7-react-js-snippets",
+    "ms-vscode.vscode-node-azure-pack",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense"
+  ]
+}

@@ -1,0 +1,126 @@
+# API Testing File for REST Client Extension
+# Use this file to test all API endpoints locally
+
+### Variables
+@baseUrl = http://localhost:3001
+@token = {{login.response.body.token}}
+
+### Health Check
+GET {{baseUrl}}/health
+
+### Login (Get Token)
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+### Register New User
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "testuser@example.com",
+  "password": "testpass123"
+}
+
+### Dashboard Overview
+GET {{baseUrl}}/api/dashboard/overview
+Authorization: Bearer {{token}}
+
+### Get All Tickets
+GET {{baseUrl}}/api/tickets
+Authorization: Bearer {{token}}
+
+### Create New Ticket
+POST {{baseUrl}}/api/tickets
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "subject": "Test Issue via API",
+  "description": "This is a test ticket created via REST Client",
+  "customer_email": "customer@example.com",
+  "customer_name": "John Doe",
+  "priority": "high",
+  "type": "complaint"
+}
+
+### Get Ticket by ID (replace 1 with actual ticket ID)
+GET {{baseUrl}}/api/tickets/1
+Authorization: Bearer {{token}}
+
+### Update Ticket Status
+PUT {{baseUrl}}/api/tickets/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "in_progress"
+}
+
+### Get All Transactions
+GET {{baseUrl}}/api/transactions
+Authorization: Bearer {{token}}
+
+### Create New Transaction
+POST {{baseUrl}}/api/transactions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "transaction_id": "TXN789012",
+  "amount": 250.00,
+  "currency": "USD",
+  "customer_email": "customer@example.com",
+  "merchant_id": "MERCH123",
+  "status": "pending",
+  "ticket_id": 1
+}
+
+### Get Transaction by ID
+GET {{baseUrl}}/api/transactions/1
+Authorization: Bearer {{token}}
+
+### Email Webhook (Simulate incoming email)
+POST {{baseUrl}}/api/webhooks/email
+Content-Type: application/json
+
+{
+  "from": "customer@example.com",
+  "subject": "Issue with my order",
+  "body": "I'm having trouble with my recent order. Please help!",
+  "timestamp": "2024-01-15T10:30:00Z"
+}
+
+### Transaction Status Webhook
+POST {{baseUrl}}/api/webhooks/transaction
+Content-Type: application/json
+
+{
+  "transaction_id": "TXN789012",
+  "status": "completed",
+  "timestamp": "2024-01-15T11:00:00Z",
+  "webhook_secret": "your-webhook-secret-key"
+}
+
+### Get Recent Tickets
+GET {{baseUrl}}/api/dashboard/tickets/recent
+Authorization: Bearer {{token}}
+
+### Get System Metrics
+GET {{baseUrl}}/api/dashboard/metrics
+Authorization: Bearer {{token}}
+
+### Manual Cron Job Trigger (for testing)
+POST {{baseUrl}}/api/dashboard/trigger-cron
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "job": "transaction-status-update"
+}
